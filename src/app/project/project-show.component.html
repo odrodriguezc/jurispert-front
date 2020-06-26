@@ -1,0 +1,77 @@
+<section class="mb-3">
+  <div class="card">
+    <h5 class="card-header">Information generale</h5>
+    <div class="card-body">
+      <h5 class="card-title">{{ project.title }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">
+        {{ project.customer[0].firstName }}
+        {{ project.customer[0].lastName }} vs {{ project.adversary }}
+      </h6>
+      <p class="card-text"><a href="#" class="card-link">Voir client</a></p>
+      <p class="card-subtitle mb-2">{{ project.category }}</p>
+      <p class="card-text">
+        {{ project.description }}
+      </p>
+      <hr />
+      <p class="card-text">
+        Gestion en charge depuis:
+        <span>{{ project.createdAt | date: "longDate" }}</span>
+      </p>
+      <p class="card-text">
+        Date de fin de projet:
+        <span>{{ project.deadline | date: "longDate" }}</span>
+      </p>
+      <p class="card-text">
+        Evolution:
+      </p>
+      <div class="card-text d-flex">
+        <span
+          class="border"
+          [class.bg-info]="s === project.status"
+          *ngFor="let s of project.stages"
+          >{{ s }}</span
+        >
+      </div>
+      <a routerLink="/projects/edit/{{ project.id }}" class="card-link"
+        >Modifier</a
+      >
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="card">
+    <h5 class="card-header">Equipe de travail</h5>
+    <div class="card-body">
+      <p class="card-text" *ngFor="let p of project.participations">
+        <span> {{ p.role }} :</span>{{ p.user.fullName }}
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Gestion du projet</h2>
+  <div class="row">
+    <div class="col">
+      <h4>Taches</h4>
+      <div class="card" *ngFor="let t of project.tasks">
+        <h5 class="card-header">{{ t.title }}</h5>
+        <div class="card-body">
+          <p class="card-text">{{ t.deadline | date: "longDate" }}</p>
+          <a routerLink="/tasks/{{ t.id }}" class="card-link">Voir</a>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <h4>Events</h4>
+      <div class="card" *ngFor="let e of project.events">
+        <h5 class="card-header">{{ e.title }}</h5>
+        <div class="card-body">
+          <p class="card-text">{{ e.date | date: "longDate" }}</p>
+          <a routerLink="/events/{{ e.id }}" class="card-link">Voir</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

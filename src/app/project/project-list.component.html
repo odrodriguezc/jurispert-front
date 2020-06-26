@@ -1,0 +1,21 @@
+<h1>Liste de projets</h1>
+
+<ul class="list-group d-flex">
+  <li class="list-group-item" *ngFor="let p of projects">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{{ p.title }}</h4>
+        <h6 class="card-subtitle mb-2 text-muted">
+          {{ p.customer[0].firtName }} {{ p.customer[0].lastName }} vs
+          {{ p.adversary }}
+        </h6>
+        <p class="card-text">
+          {{ p.shortDescription }}
+        </p>
+        <a routerLink="/projects/{{ p.id }}" class="card-link text-right"
+          >Details</a
+        >
+      </div>
+    </div>
+  </li>
+</ul>
