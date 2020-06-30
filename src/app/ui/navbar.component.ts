@@ -26,6 +26,14 @@ import { Router } from '@angular/router';
               >Mes Projets</a
             >
           </li>
+          <li class="nav-item">
+            <a
+              routerLink="/customers"
+              routerLinkActive="active"
+              class="nav-link"
+              >Clients</a
+            >
+          </li>
         </ul>
         <ul class="navbar-nav ml-auto">
           <ng-container *ngIf="!isAuthenticated">

@@ -7,7 +7,11 @@
         {{ project.customer[0].firstName }}
         {{ project.customer[0].lastName }} vs {{ project.adversary }}
       </h6>
-      <p class="card-text"><a href="#" class="card-link">Voir client</a></p>
+      <p class="card-text" *ngFor="let c of project.customer">
+        <a routerLink="/customers/{{ c.id }}" class="card-link">
+          {{ c.firstName }} {{ c.lastName }}
+        </a>
+      </p>
       <p class="card-subtitle mb-2">{{ project.category }}</p>
       <p class="card-text">
         {{ project.description }}
