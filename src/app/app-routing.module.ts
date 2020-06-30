@@ -9,6 +9,11 @@ import { CustomersResolverService } from './customers/customers-resolver.service
 import { CustomerEditComponent } from './customers/customer-edit.component';
 import { CustomerCreateComponent } from './customers/customer-create/customer-create.component';
 import { CustomerShowComponent } from './customers/customer-show/customer-show.component';
+import { TaskListComponent } from './tasks/task-list/task-list.component';
+import { TaskResolverService } from './tasks/task-resolver.service';
+import { TaskCreateComponent } from './tasks/task-create/task-create.component';
+import { TaskEditComponent } from './tasks/task-edit/task-edit.component';
+import { TaskShowComponent } from './tasks/task-show/task-show.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -40,6 +45,25 @@ const routes: Routes = [
     path: 'customers/:id',
     component: CustomerShowComponent,
     resolve: { customer: CustomersResolverService },
+  },
+  {
+    path: 'tasks',
+    component: TaskListComponent,
+    resolve: { tasks: TaskResolverService },
+  },
+  {
+    path: 'tasks/new',
+    component: TaskCreateComponent,
+  },
+  {
+    path: 'tasks/edit/:id',
+    component: TaskEditComponent,
+    resolve: { task: TaskResolverService },
+  },
+  {
+    path: 'tasks/:id',
+    component: TaskShowComponent,
+    resolve: { task: TaskResolverService },
   },
 ];
 

@@ -27,6 +27,11 @@ import { Router } from '@angular/router';
             >
           </li>
           <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/tasks"
+              >Mes taches</a
+            >
+          </li>
+          <li class="nav-item">
             <a
               routerLink="/customers"
               routerLinkActive="active"
