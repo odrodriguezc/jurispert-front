@@ -32,6 +32,11 @@ import { Router } from '@angular/router';
             >
           </li>
           <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/events"
+              >Agenda</a
+            >
+          </li>
+          <li class="nav-item">
             <a
               routerLink="/customers"
               routerLinkActive="active"

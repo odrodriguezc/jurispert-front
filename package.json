@@ -19,6 +19,8 @@
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
+    "@fullcalendar/angular": "^5.1.0",
+    "@fullcalendar/daygrid": "^5.1.0",
     "jwt-decode": "^2.2.0",
     "ngx-toastr": "^12.1.0",
     "rxjs": "~6.5.4",

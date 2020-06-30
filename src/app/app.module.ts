@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ import { CustomersModule } from './customers/customers.module';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TasksModule } from './tasks/tasks.module';
+import { EventsModule } from './events/events.module';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
@@ -17,11 +19,13 @@ import { TasksModule } from './tasks/tasks.module';
     BrowserModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    FullCalendarModule,
     AppRoutingModule,
     AuthModule,
     ProjectModule,
     CustomersModule,
     TasksModule,
+    EventsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

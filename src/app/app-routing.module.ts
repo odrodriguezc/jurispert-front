@@ -14,6 +14,11 @@ import { TaskResolverService } from './tasks/task-resolver.service';
 import { TaskCreateComponent } from './tasks/task-create/task-create.component';
 import { TaskEditComponent } from './tasks/task-edit/task-edit.component';
 import { TaskShowComponent } from './tasks/task-show/task-show.component';
+import { EventsCreateComponent } from './events/events-create/events-create.component';
+import { EventsEditComponent } from './events/events-edit/events-edit.component';
+import { EventResolverService } from './events/event-resolver.service';
+import { EventsListComponent } from './events/events-list/events-list.component';
+import { EventsShowComponent } from './events/events-show/events-show.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -64,6 +69,25 @@ const routes: Routes = [
     path: 'tasks/:id',
     component: TaskShowComponent,
     resolve: { task: TaskResolverService },
+  },
+  {
+    path: 'events',
+    component: EventsListComponent,
+    resolve: { events: EventResolverService },
+  },
+  {
+    path: 'events/new',
+    component: EventsCreateComponent,
+  },
+  {
+    path: 'events/edit/:id',
+    component: EventsEditComponent,
+    resolve: { event: EventResolverService },
+  },
+  {
+    path: 'events/:id',
+    component: EventsShowComponent,
+    resolve: { event: EventResolverService },
   },
 ];
 
