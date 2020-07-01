@@ -1,0 +1,64 @@
+<h1>Nouveau client</h1>
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Nom complet"
+      formControlName="firstName"
+      [class.is-invalid]="submitted && form.controls['firstName'].invalid"
+    />
+    <p class="invalid-feedback">
+      {{ form.controls["firstName"].getError("invalid") }}
+    </p>
+  </div>
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Nom complet"
+      formControlName="lastName"
+      [class.is-invalid]="submitted && form.controls['lastName'].invalid"
+    />
+    <p class="invalid-feedback">
+      {{ form.controls["lastName"].getError("invalid") }}
+    </p>
+  </div>
+  <div class="form-group">
+    <input
+      type="email"
+      class="form-control"
+      placeholder="Adresse email"
+      formControlName="email"
+      [class.is-invalid]="submitted && form.controls['email'].invalid"
+    />
+    <p class="invalid-feedback">
+      {{ form.controls["email"].getError("invalid") }}
+    </p>
+  </div>
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Adresse "
+      formControlName="address"
+      [class.is-invalid]="submitted && form.controls['address'].invalid"
+    />
+    <p class="invalid-feedback">
+      {{ form.controls["address"].getError("invalid") }}
+    </p>
+  </div>
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Entreprise / Societé"
+      formControlName="company"
+      [class.is-invalid]="submitted && form.controls['company'].invalid"
+    />
+  </div>
+  <p class="invalid-feedback">
+    {{ form.controls["company"].getError("invalid") }}
+  </p>
+  <button class="btn btn-success">Enregistrer</button>
+</form>

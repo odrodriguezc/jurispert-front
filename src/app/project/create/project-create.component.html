@@ -1,0 +1,100 @@
+<h1>Creer un projet</h1>
+
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <div class="form-group">
+    <label for="title">Titre de du projet</label>
+    <input
+      type="text"
+      class="form-control"
+      [class.is-invalid]="submitted && form.controls['title'].invalid"
+      id="title"
+      formControlName="title"
+    />
+    <p class="invalid-feedback">
+      {{ form.controls["title"].getError("invalid") }}
+    </p>
+  </div>
+  <div class="form-group">
+    <label for="customer">Client</label>
+    <select
+      id="customer"
+      class="form-control"
+      [class.is-invalid]="submitted && form.controls['customer'].invalid"
+      formControlName="customer"
+      multiple
+    >
+      <option value=""> -- Selectionez le client -- </option>
+      <option value="/api/customers/{{ c.id }}" *ngFor="let c of customers">
+        {{ c.firstName }} {{ c.lastName }}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="adversary">Adversaire</label>
+    <input
+      type="text"
+      class="form-control"
+      [class.is-invalid]="submitted && form.controls['adversary'].invalid"
+      id="adversary"
+      formControlName="adversary"
+    />
+    <p class="invalid-feedback">
+      {{ form.controls["adversary"].getError("invalid") }}
+    </p>
+  </div>
+  <div class="form-group">
+    <label for="adversary">Categorie</label>
+    <input
+      readonly
+      type="text"
+      class="form-control"
+      [class.is-invalid]="submitted && form.controls['category'].invalid"
+      id="category"
+      formControlName="category"
+    />
+    <p class="invalid-feedback">
+      {{ form.controls["category"].getError("invalid") }}
+    </p>
+  </div>
+  <div class="form-group">
+    <label for="shortDescription">Description courte</label>
+    <input
+      type="text"
+      class="form-control"
+      [class.is-invalid]="
+        submitted && form.controls['shortDescription'].invalid
+      "
+      id="shortDescription"
+      formControlName="shortDescription"
+    />
+    <p class="invalid-feedback">
+      {{ form.controls["shortDescription"].getError("invalid") }}
+    </p>
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea
+      class="form-control"
+      [class.is-invalid]="submitted && form.controls['description'].invalid"
+      id="description"
+      formControlName="description"
+    ></textarea>
+    <p class="invalid-feedback">
+      {{ form.controls["description"].getError("invalid") }}
+    </p>
+  </div>
+  <div class="form-group">
+    <label for="deadline">Deadline</label>
+    <input
+      type="date"
+      class="form-control"
+      [class.is-invalid]="submitted && form.controls['deadline'].invalid"
+      id="deadline"
+      formControlName="deadline"
+    />
+    <p class="invalid-feedback">
+      {{ form.controls["deadline"].getError("invalid") }}
+    </p>
+  </div>
+  <button class="btn btn-success">Enregistrer</button>
+</form>

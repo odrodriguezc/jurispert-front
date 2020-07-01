@@ -1,0 +1,38 @@
+<h1>Mes Evennements</h1>
+
+<a routerLink="/events/new" class="btn-link">Ajouter un evennement</a>
+<table class="table table-hover">
+  <thead>
+    <tr class="table-primary">
+      <th class="text-center">Id</th>
+      <th class="text-center">Title</th>
+      <th class="text-center">Date</th>
+      <th class="text-center">Projet</th>
+      <th class="txt-center"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let e of events; let isOdd = odd"
+      [class.table-secondary]="isOdd"
+      [class.table-primary]="!isOdd"
+    >
+      <td>
+        <a routerLink="/events/{{ e.id }}"> {{ e.id }}</a>
+      </td>
+      <td>
+        <a routerLink="/events/{{ e.id }}"> {{ e.title }}</a>
+      </td>
+      <td>{{ e.date | date: "longDate" }}</td>
+      <td>{{ e.project.title }}</td>
+      <td>
+        <a routerLink="/events/edit/{{ e.id }}" class="btn btn-primary btn-sm"
+          >Modifier</a
+        >
+        <button class="ml-1 btn btn-danger btn-sm" (click)="handleDelete(e)">
+          Supprimer
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

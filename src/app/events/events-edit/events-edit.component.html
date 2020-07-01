@@ -1,0 +1,65 @@
+<button
+  class="btn btn-link"
+  *ngIf="!open && participantIsAuthorized()"
+  (click)="open = !open"
+>
+  modifier
+</button>
+
+<ng-container *ngIf="open">
+  <h1>Modifier un evennement</h1>
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+    <div class="form-group">
+      <label for="title">Titre de l'evennement</label>
+      <input
+        type="text"
+        class="form-control"
+        [class.is-invalid]="submitted && form.controls['title'].invalid"
+        id="title"
+        formControlName="title"
+      />
+      <p class="invalid-feedback">
+        {{ form.controls["title"].getError("invalid") }}
+      </p>
+    </div>
+    <div class="form-group">
+      <label for="deadline">Date</label>
+      <input
+        type="date"
+        class="form-control"
+        [class.is-invalid]="submitted && form.controls['date'].invalid"
+        id="date"
+        formControlName="date"
+      />
+      <p class="invalid-feedback">
+        {{ form.controls["date"].getError("invalid") }}
+      </p>
+    </div>
+    <div class="form-group">
+      <label for="deadline">Adresse</label>
+      <input
+        type="text"
+        class="form-control"
+        [class.is-invalid]="submitted && form.controls['address'].invalid"
+        id="address"
+        formControlName="address"
+      />
+      <p class="invalid-feedback">
+        {{ form.controls["address"].getError("invalid") }}
+      </p>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        class="form-control"
+        [class.is-invalid]="submitted && form.controls['description'].invalid"
+        id="description"
+        formControlName="description"
+      ></textarea>
+      <p class="invalid-feedback">
+        {{ form.controls["description"].getError("invalid") }}
+      </p>
+    </div>
+    <button class="btn btn-success">Enregistrer</button>
+  </form>
+</ng-container>
