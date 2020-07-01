@@ -19,6 +19,8 @@ import { EventsEditComponent } from './events/events-edit/events-edit.component'
 import { EventResolverService } from './events/event-resolver.service';
 import { EventsListComponent } from './events/events-list/events-list.component';
 import { EventsShowComponent } from './events/events-show/events-show.component';
+import { ProjectCreateComponent } from './project/create/project-create.component';
+import { ProjectEditComponent } from './project/edit/project-edit.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -26,6 +28,18 @@ const routes: Routes = [
     path: 'projects',
     component: ProjectListComponent,
     resolve: { projects: ProjectResolverService },
+  },
+  {
+    path: 'projects/new',
+    component: ProjectCreateComponent,
+    resolve: { customers: CustomersResolverService },
+  },
+  {
+    path: 'projects/edit/:id',
+    component: ProjectEditComponent,
+    resolve: {
+      project: ProjectResolverService,
+    },
   },
   {
     path: 'projects/:id',

@@ -66,7 +66,12 @@
           <a routerLink="/tasks/{{ t.id }}" class="card-link">Voir</a>
         </div>
       </div>
+      <app-task-create
+        [project]="project"
+        (taskCreated)="handleNewTask($event)"
+      ></app-task-create>
     </div>
+
     <div class="col">
       <h4>Events</h4>
       <div class="card" *ngFor="let e of project.events">

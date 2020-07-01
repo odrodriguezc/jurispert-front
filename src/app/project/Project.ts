@@ -1,3 +1,5 @@
+import { User } from '../auth/user';
+
 export interface Project {
   id?: number;
   title: string;
@@ -13,4 +15,5 @@ export interface Project {
   participations?: any;
   category: string;
   events?: any;
+  owner?: User | string;
 }

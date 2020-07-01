@@ -4,6 +4,7 @@ import { AuthService } from '../auth/auth.service';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Project } from './Project';
+import { ProjectEditComponent } from './edit/project-edit.component';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +20,16 @@ export class ProjectService {
 
   find(id: number) {
     return this.http.get<Project>(environment.apiUrl + '/projects/' + id);
+  }
+
+  create(project: Project) {
+    return this.http.post<Project>(environment.apiUrl + '/projects', project);
+  }
+
+  update(project: Project) {
+    return this.http.put<Project>(
+      environment.apiUrl + '/projects/' + project.id,
+      project
+    );
   }
 }

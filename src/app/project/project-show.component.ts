@@ -3,6 +3,7 @@ import { Project } from './Project';
 import { ProjectService } from './project.service';
 import { UiService } from '../ui/ui.service';
 import { ActivatedRoute } from '@angular/router';
+import { Task } from '../tasks/Task';
 
 @Component({
   selector: 'app-project-show',
@@ -21,5 +22,9 @@ export class ProjectShowComponent implements OnInit {
   ngOnInit(): void {
     this.project = this.route.snapshot.data.projects;
     console.log(this.project);
+  }
+
+  handleNewTask(task: Task) {
+    this.project.tasks.push(task);
   }
 }
