@@ -22,6 +22,7 @@ import { EventsShowComponent } from './events/events-show/events-show.component'
 import { ProjectCreateComponent } from './project/create/project-create.component';
 import { ProjectEditComponent } from './project/edit/project-edit.component';
 import { FormGuard } from './ui/form.guard';
+import { AuthorizationAdminGuard } from './auth/authorization-admin.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -33,11 +34,13 @@ const routes: Routes = [
   {
     path: 'projects/new',
     component: ProjectCreateComponent,
+    canActivate: [AuthorizationAdminGuard],
     resolve: { customers: CustomersResolverService },
   },
   {
     path: 'projects/edit/:id',
     component: ProjectEditComponent,
+    canActivate: [AuthorizationAdminGuard],
     resolve: {
       project: ProjectResolverService,
     },
@@ -55,7 +58,7 @@ const routes: Routes = [
   {
     path: 'customers/new',
     component: CustomerCreateComponent,
-    canActivate: [FormGuard],
+    canDeactivate: [FormGuard],
   },
   {
     path: 'customers/edit/:id',
@@ -74,15 +77,6 @@ const routes: Routes = [
     resolve: { tasks: TaskResolverService },
   },
   {
-    path: 'tasks/new',
-    component: TaskCreateComponent,
-  },
-  {
-    path: 'tasks/edit/:id',
-    component: TaskEditComponent,
-    resolve: { task: TaskResolverService },
-  },
-  {
     path: 'tasks/:id',
     component: TaskShowComponent,
     resolve: { task: TaskResolverService },
@@ -91,15 +85,6 @@ const routes: Routes = [
     path: 'events',
     component: EventsListComponent,
     resolve: { events: EventResolverService },
-  },
-  {
-    path: 'events/new',
-    component: EventsCreateComponent,
-  },
-  {
-    path: 'events/edit/:id',
-    component: EventsEditComponent,
-    resolve: { event: EventResolverService },
   },
   {
     path: 'events/:id',
