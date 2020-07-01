@@ -1,5 +1,7 @@
 <h1>Liste de projets</h1>
-<a routerLink="/projects/new" class="card-link">Ajouter un projet</a>
+<a routerLink="/projects/new" class="card-link" *ngIf="auth.isAuthorizedAdmin()"
+  >Ajouter un projet</a
+>
 <ul class="list-group d-flex">
   <li class="list-group-item" *ngFor="let p of projects">
     <div class="card">

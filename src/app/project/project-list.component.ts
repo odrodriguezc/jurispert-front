@@ -3,6 +3,7 @@ import { ProjectService } from './project.service';
 import { UiService } from '../ui/ui.service';
 import { ActivatedRoute } from '@angular/router';
 import { Project } from './Project';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-project-list',
@@ -15,7 +16,8 @@ export class ProjectListComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private ui: UiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public auth: AuthService
   ) {}
 
   ngOnInit(): void {

@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 
 import jwtDecode from 'jwt-decode';
 import { Subject, interval } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ import { Subject, interval } from 'rxjs';
 export class AuthService {
   authChanged = new Subject<boolean>();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private route: ActivatedRoute) {
     interval(5000).subscribe((i) => {
       this.authChanged.next(this.isAuthenticated());
       //console.log(i);
@@ -29,6 +30,12 @@ export class AuthService {
     const data = jwtDecode(token);
 
     return data.exp * 1000 > Date.now();
+  }
+
+  isAuthorizedAdmin() {
+    const token = jwtDecode(window.localStorage.getItem('token'));
+
+    return token.user.roles.includes('ROLE_ADMIN');
   }
 
   logout() {
@@ -51,10 +58,28 @@ export class AuthService {
         })
       );
   }
+
+  getUser() {
+    return jwtDecode(this.getToken()).user;
+  }
 }
 
 /***CREDENTIALS INTERFACE */
 export interface Credentials {
   username: string;
   password: string;
+}
+
+export interface Token {
+  exp: number;
+  int: number;
+  roles: Array<string>;
+  username: string;
+  user: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    roles: Array<string>;
+  };
 }

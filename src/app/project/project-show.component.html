@@ -65,8 +65,15 @@
           <p class="card-text">{{ t.deadline | date: "longDate" }}</p>
           <a routerLink="/tasks/{{ t.id }}" class="card-link">Voir</a>
         </div>
+        <app-task-edit
+          [currentUser]="currentUser"
+          [project]="project"
+          [currentTask]="t"
+          (editedTask)="handleEditedTask($event)"
+        ></app-task-edit>
       </div>
       <app-task-create
+        [currentUser]="currentUser"
         [project]="project"
         (taskCreated)="handleNewTask($event)"
       ></app-task-create>
@@ -80,8 +87,15 @@
           <p class="card-text">{{ e.date | date: "longDate" }}</p>
           <a routerLink="/events/{{ e.id }}" class="card-link">Voir</a>
         </div>
+        <app-events-edit
+          [currentUser]="currentUser"
+          [project]="project"
+          [currentEvent]="e"
+          (editedEvent)="handleEditedEvent($event)"
+        ></app-events-edit>
       </div>
       <app-events-create
+        [currentUser]="currentUser"
         [project]="project"
         (eventCreated)="handleNewEvent($event)"
       ></app-events-create>
