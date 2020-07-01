@@ -21,6 +21,7 @@ import { EventsListComponent } from './events/events-list/events-list.component'
 import { EventsShowComponent } from './events/events-show/events-show.component';
 import { ProjectCreateComponent } from './project/create/project-create.component';
 import { ProjectEditComponent } from './project/edit/project-edit.component';
+import { FormGuard } from './ui/form.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -54,10 +55,12 @@ const routes: Routes = [
   {
     path: 'customers/new',
     component: CustomerCreateComponent,
+    canActivate: [FormGuard],
   },
   {
     path: 'customers/edit/:id',
     component: CustomerEditComponent,
+    canDeactivate: [FormGuard],
     resolve: { customer: CustomersResolverService },
   },
   {

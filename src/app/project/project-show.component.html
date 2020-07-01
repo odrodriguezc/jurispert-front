@@ -81,6 +81,10 @@
           <a routerLink="/events/{{ e.id }}" class="card-link">Voir</a>
         </div>
       </div>
+      <app-events-create
+        [project]="project"
+        (eventCreated)="handleNewEvent($event)"
+      ></app-events-create>
     </div>
   </div>
 </section>

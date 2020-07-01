@@ -4,6 +4,7 @@ import { ProjectService } from './project.service';
 import { UiService } from '../ui/ui.service';
 import { ActivatedRoute } from '@angular/router';
 import { Task } from '../tasks/Task';
+import { Event } from '../events/event';
 
 @Component({
   selector: 'app-project-show',
@@ -26,5 +27,9 @@ export class ProjectShowComponent implements OnInit {
 
   handleNewTask(task: Task) {
     this.project.tasks.push(task);
+  }
+
+  handleNewEvent(event: Event) {
+    this.project.events.push(event);
   }
 }

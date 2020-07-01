@@ -7,20 +7,14 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CustomerCreateComponent } from '../customers/customer-create/customer-create.component';
-import { InvoiceCreateComponent } from '../invoices/invoice-create.component';
 import { CustomerEditComponent } from '../customers/customer-edit.component';
-import { InvoiceEditComponent } from '../invoices/invoice-edit.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FormGuard implements CanDeactivate<unknown> {
   canDeactivate(
-    component:
-      | CustomerCreateComponent
-      | InvoiceCreateComponent
-      | CustomerEditComponent
-      | InvoiceEditComponent,
+    component: CustomerCreateComponent | CustomerEditComponent,
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot
