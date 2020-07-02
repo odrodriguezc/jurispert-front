@@ -1,28 +1,24 @@
-<div class="card border-secondary mb-3">
-  <div class="card-header">event</div>
-  <div class="card-body">
-    <h4 class="card-title">{{ event.title }}</h4>
-    <h5 class="card-subtitle mb-3">Projet: {{ event.project.title }}</h5>
-    <h6 class="mb-2">Description</h6>
-    <p class="card-text">
-      {{ event.description }}
-    </p>
-    <p class="card-text">
-      date: <span> {{ event.date | date: "longDate" }} </span>
-    </p>
-    <p class="card-text">Adresse: {{ event.address }}</p>
-    <div class="flex">
-      <a routerLink="/events/edit/{{ event.id }}" class="btn btn-warning ml-3"
-        >Modifier</a
-      >
-      <button class="btn btn-danger ml-3" (click)="handleDelete(event)">
-        Supprimer
-      </button>
+<ng-container *ngIf="event">
+  <div class="card border-secondary mb-3">
+    <div class="card-header">event</div>
+    <div class="card-body">
+      <h4 class="card-title">{{ event.title }}</h4>
+      <h6 class="mb-2">Description</h6>
+      <p class="card-text">
+        {{ event.description }}
+      </p>
+      <p class="card-text">
+        date: <span> {{ event.date | date: "longDate" }} </span>
+      </p>
+      <p class="card-text">Adresse: {{ event.address }}</p>
+      <div class="flex">
+        <button class="btn btn-danger ml-3" (click)="handleDelete(event)">
+          Supprimer
+        </button>
+        <button class="btn btn-secundary ml-3" (click)="event = null">
+          Back
+        </button>
+      </div>
     </div>
   </div>
-  <div class="card-footer">
-    <a routerLink="/projects/{{ event.project.id }}" class="btn btn-link"
-      >Go to project</a
-    >
-  </div>
-</div>
+</ng-container>

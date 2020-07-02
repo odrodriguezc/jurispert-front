@@ -13,6 +13,6 @@ import { EventsShowComponent } from './events-show/events-show.component';
     EventsShowComponent,
   ],
   imports: [SharedModule],
-  exports: [EventsCreateComponent, EventsEditComponent],
+  exports: [EventsCreateComponent, EventsEditComponent, EventsShowComponent],
 })
 export class EventsModule {}

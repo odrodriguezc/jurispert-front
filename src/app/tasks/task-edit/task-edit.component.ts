@@ -107,7 +107,12 @@ export class TaskEditComponent implements OnInit {
     }
 
     this.taskService
-      .update({ ...this.currentTask, ...this.form.value, completed: false })
+      .update({
+        ...this.currentTask,
+        ...this.form.value,
+        completed: false,
+        project: '/api/projects/' + this.project.id,
+      })
       .subscribe(
         (task) => {
           this.editedTask.emit(task);

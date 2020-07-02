@@ -14,6 +14,6 @@ import { TaskEditComponent } from './task-edit/task-edit.component';
     TaskEditComponent,
   ],
   imports: [SharedModule],
-  exports: [TaskCreateComponent, TaskEditComponent],
+  exports: [TaskCreateComponent, TaskEditComponent, TaskShowComponent],
 })
 export class TasksModule {}

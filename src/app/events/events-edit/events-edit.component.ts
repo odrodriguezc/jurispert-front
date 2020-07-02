@@ -56,7 +56,11 @@ export class EventsEditComponent implements OnInit {
     }
 
     this.eventsService
-      .update({ ...this.currentEvent, ...this.form.value })
+      .update({
+        ...this.currentEvent,
+        ...this.form.value,
+        project: '/api/projects/' + this.project.id,
+      })
       .subscribe(
         (event) => {
           this.editedEvent.emit(event);

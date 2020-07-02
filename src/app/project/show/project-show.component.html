@@ -61,9 +61,9 @@
       <h4>Taches</h4>
       <div class="card" *ngFor="let t of project.tasks">
         <h5 class="card-header">{{ t.title }}</h5>
-        <div class="card-body">
+        <div class="card-body" [class.bg-info]="t.completed">
           <p class="card-text">{{ t.deadline | date: "longDate" }}</p>
-          <a routerLink="/tasks/{{ t.id }}" class="card-link">Voir</a>
+          <button (click)="handleShowTask(t)" class="card-link">details</button>
         </div>
         <app-task-edit
           [currentUser]="currentUser"
@@ -85,7 +85,9 @@
         <h5 class="card-header">{{ e.title }}</h5>
         <div class="card-body">
           <p class="card-text">{{ e.date | date: "longDate" }}</p>
-          <a routerLink="/events/{{ e.id }}" class="card-link">Voir</a>
+          <button (click)="handleShowEvent(e)" class="card-link">
+            details
+          </button>
         </div>
         <app-events-edit
           [currentUser]="currentUser"
@@ -101,4 +103,16 @@
       ></app-events-create>
     </div>
   </div>
+  <app-task-show
+    [project]="project"
+    [task]="currentTask"
+    (deletedTask)="handleDeletedTask($event)"
+    (editedTask)="handleEditedTask($event)"
+  ></app-task-show>
+  <app-events-show
+    [project]="project"
+    [event]="currentEvent"
+    (deletedEvent)="handleDeletedEvent($event)"
+    (editedEvent)="handleEditedEvent($event)"
+  ></app-events-show>
 </section>

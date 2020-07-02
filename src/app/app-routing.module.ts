@@ -1,28 +1,22 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthorizationAdminGuard } from './auth/authorization-admin.guard';
 import { LoginComponent } from './auth/login.component';
-import { ProjectListComponent } from './project/project-list.component';
-import { ProjectShowComponent } from './project/project-show.component';
-import { ProjectResolverService } from './project/project-resolver.service';
-import { CustomersComponent } from './customers/customers.component';
-import { CustomersResolverService } from './customers/customers-resolver.service';
-import { CustomerEditComponent } from './customers/customer-edit.component';
 import { CustomerCreateComponent } from './customers/customer-create/customer-create.component';
+import { CustomerEditComponent } from './customers/customer-edit.component';
 import { CustomerShowComponent } from './customers/customer-show/customer-show.component';
-import { TaskListComponent } from './tasks/task-list/task-list.component';
-import { TaskResolverService } from './tasks/task-resolver.service';
-import { TaskCreateComponent } from './tasks/task-create/task-create.component';
-import { TaskEditComponent } from './tasks/task-edit/task-edit.component';
-import { TaskShowComponent } from './tasks/task-show/task-show.component';
-import { EventsCreateComponent } from './events/events-create/events-create.component';
-import { EventsEditComponent } from './events/events-edit/events-edit.component';
+import { CustomersResolverService } from './customers/customers-resolver.service';
+import { CustomersComponent } from './customers/customers.component';
 import { EventResolverService } from './events/event-resolver.service';
 import { EventsListComponent } from './events/events-list/events-list.component';
-import { EventsShowComponent } from './events/events-show/events-show.component';
 import { ProjectCreateComponent } from './project/create/project-create.component';
 import { ProjectEditComponent } from './project/edit/project-edit.component';
+import { ProjectListComponent } from './project/list/project-list.component';
+import { ProjectResolverService } from './project/project-resolver.service';
+import { ProjectShowComponent } from './project/show/project-show.component';
+import { TaskListComponent } from './tasks/task-list/task-list.component';
+import { TaskResolverService } from './tasks/task-resolver.service';
 import { FormGuard } from './ui/form.guard';
-import { AuthorizationAdminGuard } from './auth/authorization-admin.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -77,19 +71,9 @@ const routes: Routes = [
     resolve: { tasks: TaskResolverService },
   },
   {
-    path: 'tasks/:id',
-    component: TaskShowComponent,
-    resolve: { task: TaskResolverService },
-  },
-  {
     path: 'events',
     component: EventsListComponent,
     resolve: { events: EventResolverService },
-  },
-  {
-    path: 'events/:id',
-    component: EventsShowComponent,
-    resolve: { event: EventResolverService },
   },
 ];
 

@@ -4,12 +4,13 @@ import { TaskService } from '../task.service';
 import { UiService } from 'src/app/ui/ui.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Project } from 'src/app/project/Project';
 
 @Component({
   selector: 'app-task-list',
   template: `
     <h1>Mes taches</h1>
-    <a routerLink="/tasks/new" class="btn-link">Ajouter une tache</a>
     <table class="table table-hover">
       <thead>
         <tr class="table-primary">
@@ -39,11 +40,20 @@ import { ToastrService } from 'ngx-toastr';
           <td>{{ t.deadline | date: 'longDate' }}</td>
           <td>{{ t.project.title }}</td>
           <td>
-            <a
-              routerLink="/tasks/edit/{{ t.id }}"
-              class="btn btn-primary btn-sm"
-              >Modifier</a
+            <button
+              *ngIf="!t.completed"
+              (click)="handleStatus(t, true)"
+              class="btn btn-success ml-3"
             >
+              Completer
+            </button>
+            <button
+              *ngIf="t.completed"
+              (click)="handleStatus(t, false)"
+              class="btn btn-warning ml-3"
+            >
+              Re-ouvrir
+            </button>
             <button
               class="ml-1 btn btn-danger btn-sm"
               (click)="handleDelete(t)"
@@ -80,7 +90,7 @@ export class TaskListComponent implements OnInit {
 
     this.ui.setLoading(true);
 
-    this.tasksService.delete(t.id).subscribe(
+    this.tasksService.delete(+t.id).subscribe(
       () => {
         this.toastr.success('la tache a bien été supprimé', 'success');
         this.ui.setLoading(false);
@@ -96,5 +106,27 @@ export class TaskListComponent implements OnInit {
         this.ui.setLoading(false);
       }
     );
+  }
+
+  handleStatus(task: Task, status: boolean) {
+    this.tasksService
+      .update({
+        ...task,
+        project: '/api/projects/' + (task.project as Project).id,
+        completed: status,
+      })
+      .subscribe(
+        (task) => {
+          this.toastr.success('La tache a bien été modifié', 'success');
+          const index = this.tasks.findIndex(
+            (element) => element.id === task.id
+          );
+          this.tasks[index] = task;
+        },
+        (error: HttpErrorResponse) => {
+          this.toastr.warning("Nous n'avons pas pu modifier la tache", 'fail');
+          return;
+        }
+      );
   }
 }

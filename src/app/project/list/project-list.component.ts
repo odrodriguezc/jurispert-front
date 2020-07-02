@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from './project.service';
-import { UiService } from '../ui/ui.service';
 import { ActivatedRoute } from '@angular/router';
-import { Project } from './Project';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
+import { UiService } from '../../ui/ui.service';
+import { Project } from './../Project';
+import { ProjectService } from './../project.service';
 
 @Component({
   selector: 'app-project-list',
