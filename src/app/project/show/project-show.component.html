@@ -36,7 +36,10 @@
           >{{ s }}</span
         >
       </div>
-      <a routerLink="/projects/edit/{{ project.id }}" class="card-link"
+      <a
+        *ngIf="participantIsAuthorized()"
+        routerLink="/projects/edit/{{ project.id }}"
+        class="card-link"
         >Modifier</a
       >
     </div>
@@ -44,14 +47,8 @@
 </section>
 
 <section>
-  <div class="card">
-    <h5 class="card-header">Equipe de travail</h5>
-    <div class="card-body">
-      <p class="card-text" *ngFor="let p of project.participations">
-        <span> {{ p.role }} :</span>{{ p.user.fullName }}
-      </p>
-    </div>
-  </div>
+  <app-participation-list [project]="project" [currentUser]="currentUser">
+  </app-participation-list>
 </section>
 
 <section>

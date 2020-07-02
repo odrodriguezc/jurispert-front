@@ -73,4 +73,12 @@ export class ProjectShowComponent implements OnInit {
     );
     this.project.events.splice(index, 1);
   }
+
+  participantIsAuthorized() {
+    const index = this.project.participations.findIndex(
+      (participation) => participation.user.id === this.currentUser.id
+    );
+
+    return this.project.participations[index].role !== 'VIEWER';
+  }
 }

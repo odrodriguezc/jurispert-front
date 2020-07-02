@@ -12,6 +12,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TasksModule } from './tasks/tasks.module';
 import { EventsModule } from './events/events.module';
+import { ParticipationModule } from './participation/participation.module';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
@@ -26,6 +27,7 @@ import { EventsModule } from './events/events.module';
     CustomersModule,
     TasksModule,
     EventsModule,
+    ParticipationModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -16,7 +16,6 @@ export class AuthService {
   constructor(private http: HttpClient, private route: ActivatedRoute) {
     interval(5000).subscribe((i) => {
       this.authChanged.next(this.isAuthenticated());
-      //console.log(i);
     });
   }
 

@@ -1,8 +1,10 @@
 export interface User {
-  //id?: number;
-  fullName: string;
+  id?: number | string;
+  fullName?: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  password: string;
+  password?: string;
   confirmation?: string;
-  //roles?: string[];
+  roles?: string[];
 }

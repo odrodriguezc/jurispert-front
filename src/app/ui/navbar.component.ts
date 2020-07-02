@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
+import { User } from '../auth/user';
 
 @Component({
   selector: 'app-navbar',
@@ -45,6 +46,11 @@ import { Router } from '@angular/router';
             >
           </li>
         </ul>
+        <div>
+          <strong
+            >{{ currentUser.firstName }} {{ currentUser.lastName }}
+          </strong>
+        </div>
         <ul class="navbar-nav ml-auto">
           <ng-container *ngIf="!isAuthenticated">
             <li class="nav-item">
@@ -64,11 +70,13 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   isAuthenticated = false;
+  currentUser: User;
 
   constructor(public auth: AuthService, private route: Router) {}
 
   ngOnInit(): void {
     this.isAuthenticated = this.auth.isAuthenticated();
+    this.currentUser = this.auth.getUser();
 
     this.auth.authChanged.subscribe((value) => {
       if (!value && this.isAuthenticated) {

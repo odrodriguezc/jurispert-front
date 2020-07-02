@@ -6,6 +6,7 @@ import { ProjectCreateComponent } from './create/project-create.component';
 import { ProjectEditComponent } from './edit/project-edit.component';
 import { ProjectListComponent } from './list/project-list.component';
 import { ProjectShowComponent } from './show/project-show.component';
+import { ParticipationModule } from '../participation/participation.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,6 @@ import { ProjectShowComponent } from './show/project-show.component';
     ProjectCreateComponent,
     ProjectEditComponent,
   ],
-  imports: [SharedModule, TasksModule, EventsModule],
+  imports: [SharedModule, TasksModule, EventsModule, ParticipationModule],
 })
 export class ProjectModule {}

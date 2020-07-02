@@ -130,7 +130,7 @@ export class TaskEditComponent implements OnInit {
 
   participantIsAuthorized() {
     const index = this.project.participations.findIndex(
-      (participation) => (participation.user.id = this.currentUser.id)
+      (participation) => participation.user.id === this.currentUser.id
     );
 
     return this.project.participations[index].role !== 'VIEWER';
