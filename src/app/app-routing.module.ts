@@ -17,9 +17,19 @@ import { ProjectShowComponent } from './project/show/project-show.component';
 import { TaskListComponent } from './tasks/task-list/task-list.component';
 import { TaskResolverService } from './tasks/task-resolver.service';
 import { FormGuard } from './ui/form.guard';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  {
+    path: '',
+    component: DashboardComponent,
+    resolve: {
+      tasks: TaskResolverService,
+      events: EventResolverService,
+      projects: ProjectResolverService,
+    },
+  },
   {
     path: 'projects',
     component: ProjectListComponent,

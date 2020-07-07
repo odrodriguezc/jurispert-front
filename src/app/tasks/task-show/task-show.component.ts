@@ -6,11 +6,12 @@ import { Task } from '../Task';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Project } from 'src/app/project/Project';
+import { User } from 'src/app/auth/user';
 
 @Component({
   selector: 'app-task-show',
   template: `
-    <ng-container *ngIf="task">
+    <ng-container *ngIf="open">
       <div class="card border-secondary mb-3">
         <div class="card-header">Task</div>
         <div class="card-body">
@@ -42,10 +43,14 @@ import { Project } from 'src/app/project/Project';
             >
               Re-ouvrir
             </button>
-            <button class="btn btn-danger ml-3 " (click)="handleDelete(task)">
+            <button
+              *ngIf="participantIsAuthorized()"
+              class="btn btn-danger ml-3 "
+              (click)="handleDelete(task)"
+            >
               Supprimer
             </button>
-            <button class="btn btn-secundary ml-3 " (click)="task = null">
+            <button class="btn btn-secundary ml-3 " (click)="open = false">
               Back
             </button>
           </div>
@@ -56,13 +61,17 @@ import { Project } from 'src/app/project/Project';
   styles: [],
 })
 export class TaskShowComponent implements OnInit {
-  open: boolean = false;
-
   @Input()
   task: Task | null;
 
   @Input()
   project: Project;
+
+  @Input()
+  currentUser: User;
+
+  @Input()
+  open = false;
 
   @Output()
   deletedTask = new EventEmitter();
@@ -87,7 +96,7 @@ export class TaskShowComponent implements OnInit {
       (task) => {
         this.toastr.success('La tace a été bien supprimée', 'success');
         this.deletedTask.emit(taskCopy);
-        this.task = null;
+        this.open = false;
       },
       (error) => {
         this.task = taskCopy;
@@ -114,5 +123,13 @@ export class TaskShowComponent implements OnInit {
           return;
         }
       );
+  }
+
+  participantIsAuthorized() {
+    const index = this.project.participations.findIndex(
+      (participation) => participation.user.id === this.currentUser.id
+    );
+
+    return this.project.participations[index].role !== 'VIEWER';
   }
 }

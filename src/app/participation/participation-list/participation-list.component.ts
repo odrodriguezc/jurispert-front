@@ -14,27 +14,33 @@ import { ParticipationService } from '../participation.service';
         <h5 class="card-header">Equipe de travail</h5>
         <div class="card-body">
           <div *ngFor="let p of project.participations">
-            <p class="card-text">
-              <span> {{ p.role }} :</span>{{ p.user.fullName }}
-            </p>
-            <div *ngIf="p.role !== 'CREATOR' && participantIsAuthorized()">
-              <app-participation-edit
-                [currentParticipation]="p"
-                [currentUser]="currentUser"
-                [project]="project"
-              ></app-participation-edit>
-              <button (click)="handleDelete(p)" class="btn btn-warning">
-                supprimer
-              </button>
+            <div class="card-text">
+              <span *ngIf="p.role !== 'VIEWER'">
+                <i class="fas fa-gamepad"></i
+              ></span>
+              <span> {{ filterRole(p.role) }} :</span>{{ p.user.fullName }}
+              <ng-container
+                *ngIf="p.role !== 'CREATOR' && participantIsAuthorized()"
+              >
+                <app-participation-edit
+                  [currentParticipation]="p"
+                  [currentUser]="currentUser"
+                  [project]="project"
+                ></app-participation-edit>
+                <button (click)="handleDelete(p)" class="btn btn-link btn-sm">
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              </ng-container>
             </div>
           </div>
+          <app-participation-add
+            class="mt-3"
+            [currentUser]="currentUser"
+            [project]="project"
+          ></app-participation-add>
         </div>
       </div>
     </section>
-    <app-participation-add
-      [currentUser]="currentUser"
-      [project]="project"
-    ></app-participation-add>
   `,
   styles: [],
 })
@@ -75,5 +81,18 @@ export class ParticipationListComponent implements OnInit {
     );
 
     return this.project.participations[index].role !== 'VIEWER';
+  }
+
+  public filterRole(role: string) {
+    switch (role) {
+      case 'CREATOR':
+        return 'Createur';
+      case 'MANAGER':
+        return 'Gestionnaire';
+      case 'VIEWER':
+        return 'Assistant';
+      default:
+        break;
+    }
   }
 }

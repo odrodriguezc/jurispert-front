@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Task } from '../../tasks/Task';
 import { Event } from '../../events/event';
 import { AuthService } from '../../auth/auth.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-project-show',
@@ -17,6 +18,8 @@ export class ProjectShowComponent implements OnInit {
   currentUser: any;
   currentTask: Task;
   currentEvent: Event;
+  showTask = false;
+  eventShow = false;
 
   constructor(
     private projectService: ProjectService,
@@ -32,6 +35,7 @@ export class ProjectShowComponent implements OnInit {
 
   handleShowTask(task: Task) {
     this.currentTask = task;
+    this.showTask = true;
   }
 
   handleNewTask(task: Task) {
@@ -54,6 +58,7 @@ export class ProjectShowComponent implements OnInit {
 
   handleShowEvent(event: Event) {
     this.currentEvent = event;
+    this.eventShow = true;
   }
 
   handleNewEvent(event: Event) {
@@ -80,5 +85,26 @@ export class ProjectShowComponent implements OnInit {
     );
 
     return this.project.participations[index].role !== 'VIEWER';
+  }
+
+  public avgCalculator() {
+    let count = { completed: 0, incompleted: 0 };
+    if (this.project.tasks.length > 0) {
+      this.project.tasks.forEach((element) => {
+        if (element.completed) {
+          count.completed++;
+        }
+        count.incompleted++;
+      });
+    }
+
+    if (count.completed !== 0) {
+      return Math.ceil((count.completed / this.project.tasks.length) * 100);
+    }
+    return 0;
+  }
+
+  calcInterval(date) {
+    return moment(date).startOf('day').fromNow();
   }
 }

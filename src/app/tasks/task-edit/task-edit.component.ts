@@ -5,6 +5,7 @@ import { Project } from 'src/app/project/Project';
 import { UiService } from 'src/app/ui/ui.service';
 import { Task } from '../Task';
 import { TaskService } from '../task.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-task-edit',
@@ -18,7 +19,7 @@ import { TaskService } from '../task.service';
     </button>
 
     <ng-container *ngIf="open">
-      <h1>Modifier une tache</h1>
+      <h6>Modifier</h6>
       <form [formGroup]="form" (ngSubmit)="handleSubmit()">
         <div class="form-group">
           <label for="title">Titre de la tache</label>
@@ -61,6 +62,7 @@ import { TaskService } from '../task.service';
           </p>
         </div>
         <button class="btn btn-success">Enregistrer</button>
+        <button (click)="open = false" class="btn btn-warning">Annuler</button>
       </form>
     </ng-container>
   `,
@@ -93,7 +95,11 @@ export class TaskEditComponent implements OnInit {
 
   open: boolean = false;
 
-  constructor(private taskService: TaskService, private ui: UiService) {}
+  constructor(
+    private taskService: TaskService,
+    private ui: UiService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.form.patchValue(this.currentTask);
@@ -117,7 +123,7 @@ export class TaskEditComponent implements OnInit {
         (task) => {
           this.editedTask.emit(task);
           this.open = false;
-          //TODO: notification
+          this.toastr.success('la tache a bien été modifiée');
         },
         (error: HttpErrorResponse) => {
           if (error.status === 400 && error.error.violations) {

@@ -5,74 +5,77 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UiService } from '../ui/ui.service';
 import { Customer } from './customer';
 import { CustomersService } from './customers.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-edit',
   template: `
-    <h1>Modifier un client</h1>
-    <form [formGroup]="form" (ngSubmit)="handleSubmit()">
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Nom complet"
-          formControlName="firstName"
-          [class.is-invalid]="submitted && form.controls['firstName'].invalid"
-        />
+    <div class="mt-5 mb-5">
+      <h1>Modifier un client</h1>
+      <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nom complet"
+            formControlName="firstName"
+            [class.is-invalid]="submitted && form.controls['firstName'].invalid"
+          />
+          <p class="invalid-feedback">
+            {{ form.controls['firstName'].getError('invalid') }}
+          </p>
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nom complet"
+            formControlName="lastName"
+            [class.is-invalid]="submitted && form.controls['lastName'].invalid"
+          />
+          <p class="invalid-feedback">
+            {{ form.controls['lastName'].getError('invalid') }}
+          </p>
+        </div>
+        <div class="form-group">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Adresse email"
+            formControlName="email"
+            [class.is-invalid]="submitted && form.controls['email'].invalid"
+          />
+          <p class="invalid-feedback">
+            {{ form.controls['email'].getError('invalid') }}
+          </p>
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Adresse "
+            formControlName="address"
+            [class.is-invalid]="submitted && form.controls['address'].invalid"
+          />
+          <p class="invalid-feedback">
+            {{ form.controls['address'].getError('invalid') }}
+          </p>
+        </div>
+        <div class="form-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Entreprise / Societé"
+            formControlName="company"
+            [class.is-invalid]="submitted && form.controls['company'].invalid"
+          />
+        </div>
         <p class="invalid-feedback">
-          {{ form.controls['firstName'].getError('invalid') }}
+          {{ form.controls['company'].getError('invalid') }}
         </p>
-      </div>
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Nom complet"
-          formControlName="lastName"
-          [class.is-invalid]="submitted && form.controls['lastName'].invalid"
-        />
-        <p class="invalid-feedback">
-          {{ form.controls['lastName'].getError('invalid') }}
-        </p>
-      </div>
-      <div class="form-group">
-        <input
-          type="email"
-          class="form-control"
-          placeholder="Adresse email"
-          formControlName="email"
-          [class.is-invalid]="submitted && form.controls['email'].invalid"
-        />
-        <p class="invalid-feedback">
-          {{ form.controls['email'].getError('invalid') }}
-        </p>
-      </div>
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Adresse "
-          formControlName="address"
-          [class.is-invalid]="submitted && form.controls['address'].invalid"
-        />
-        <p class="invalid-feedback">
-          {{ form.controls['address'].getError('invalid') }}
-        </p>
-      </div>
-      <div class="form-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Entreprise / Societé"
-          formControlName="company"
-          [class.is-invalid]="submitted && form.controls['company'].invalid"
-        />
-      </div>
-      <p class="invalid-feedback">
-        {{ form.controls['company'].getError('invalid') }}
-      </p>
-      <button class="btn btn-success">Enregistrer</button>
-    </form>
+        <button class="btn btn-success">Enregistrer</button>
+      </form>
+    </div>
   `,
   styles: [],
 })
@@ -92,7 +95,8 @@ export class CustomerEditComponent implements OnInit {
     private customersService: CustomersService,
     private route: ActivatedRoute,
     private router: Router,
-    private ui: UiService
+    private ui: UiService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -108,12 +112,7 @@ export class CustomerEditComponent implements OnInit {
       .update({ ...this.form.value, id: this.customer.id })
       .subscribe(
         (customer) => {
-          this.ui.addFlash(
-            'success',
-            `Le client ${
-              customer.firstName + customer.lastName
-            } a bien été enregistré !`
-          );
+          this.toastr.success('Le client a bien été modifié');
           this.router.navigateByUrl('/customers');
         },
         (error: HttpErrorResponse) => {

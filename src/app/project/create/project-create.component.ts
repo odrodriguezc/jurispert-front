@@ -5,6 +5,7 @@ import { ProjectService } from '../project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UiService } from 'src/app/ui/ui.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create',
@@ -33,7 +34,8 @@ export class ProjectCreateComponent implements OnInit {
     private projectsService: ProjectService,
     private route: ActivatedRoute,
     private router: Router,
-    private ui: UiService
+    private ui: UiService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -48,9 +50,11 @@ export class ProjectCreateComponent implements OnInit {
     }
 
     this.projectsService
-      .create({ ...this.form.value, status: 'PRE-NEGOTIATION' })
+      .create({ ...this.form.value, status: 'PRE-NEGOTIATIONS' })
       .subscribe(
         (project) => {
+          this.toastr.success('Le projet a bien été creé');
+          this.toastr.success('Le nouveau projet a bien été creé');
           this.router.navigateByUrl('/projects/' + project.id);
         },
         (error: HttpErrorResponse) => {

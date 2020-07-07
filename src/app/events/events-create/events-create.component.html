@@ -6,7 +6,7 @@
   Ajouter un evennement
 </button>
 <ng-container *ngIf="open">
-  <h1>Creer un evennement</h1>
+  <h2>Nouveau</h2>
   <form [formGroup]="form" (ngSubmit)="handleSubmit()">
     <div class="form-group">
       <label for="title">Titre de l'evennement</label>
@@ -60,5 +60,6 @@
       </p>
     </div>
     <button class="btn btn-success">Enregistrer</button>
+    <button (click)="open = false" class="btn btn-warning">Annuler</button>
   </form>
 </ng-container>

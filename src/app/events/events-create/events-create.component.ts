@@ -5,6 +5,7 @@ import { Project } from 'src/app/project/Project';
 import { UiService } from 'src/app/ui/ui.service';
 import { EventsService } from '../events.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-events-create',
@@ -32,7 +33,11 @@ export class EventsCreateComponent implements OnInit {
 
   open = false;
 
-  constructor(private eventsService: EventsService, private ui: UiService) {}
+  constructor(
+    private eventsService: EventsService,
+    private ui: UiService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -51,6 +56,7 @@ export class EventsCreateComponent implements OnInit {
       .subscribe(
         (event) => {
           this.eventCreated.emit(event);
+          this.toastr.success("L'evennement a bien été crée");
           this.open = false;
         },
         (error: HttpErrorResponse) => {

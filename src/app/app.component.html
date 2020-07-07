@@ -1,4 +1,41 @@
 <app-navbar></app-navbar>
-<main class="container pt-5">
-  <router-outlet></router-outlet>
-</main>
+
+<div class="row mb-5">
+  <div class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse p-5">
+    <ul class="nav flex-column p3">
+      <li class="nav-item">
+        <a class="nav-link p2 ml-2" routerLink="/">
+          <i class="fas fa-tachometer-alt"></i>
+          Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p2 ml-2" routerLink="/projects">
+          <i class="far fa-folder-open"></i>
+          Projets
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p2 ml-2" routerLink="/tasks">
+          <i class="fas fa-tasks"></i>
+          Taches
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p2 ml-2" routerLink="/events">
+          <i class="far fa-calendar-alt"></i>
+          Agenda
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link p2 ml-2" routerLink="/customers">
+          <i class="fas fa-address-card"></i>
+          Clients
+        </a>
+      </li>
+    </ul>
+  </div>
+  <main class="col-md-9">
+    <router-outlet></router-outlet>
+  </main>
+</div>

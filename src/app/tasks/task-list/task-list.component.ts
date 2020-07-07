@@ -10,13 +10,12 @@ import { Project } from 'src/app/project/Project';
 @Component({
   selector: 'app-task-list',
   template: `
-    <h1>Mes taches</h1>
+    <h1 class="mt-5 mb-3 text-center">Mes taches</h1>
     <table class="table table-hover">
       <thead>
-        <tr class="table-primary">
-          <th class="text-center">Id</th>
-          <th class="text-center">Title</th>
-          <th class="text-center">Status</th>
+        <tr class="table-dark">
+          <th class="text-center">No.</th>
+          <th class="">Title</th>
           <th class="text-center">Depuis</th>
           <th class="text-center">Deadline</th>
           <th class="text-center">Projet</th>
@@ -25,20 +24,19 @@ import { Project } from 'src/app/project/Project';
       </thead>
       <tbody>
         <tr
-          *ngFor="let t of tasks; let isOdd = odd"
+          *ngFor="let t of tasks; let index = index; let isOdd = odd"
           [class.table-secondary]="isOdd"
           [class.table-primary]="!isOdd"
         >
-          <td>
-            <a routerLink="/tasks/{{ t.id }}"> {{ t.id }}</a>
+          <td class="text-center">
+            <a routerLink="/projects/{{ t.project.id }}"> {{ index + 1 }}</a>
           </td>
           <td>
-            <a routerLink="/tasks/{{ t.id }}"> {{ t.title }}</a>
+            <a routerLink="/projects/{{ t.project.id }}"> {{ t.title }}</a>
           </td>
-          <td>{{ t.completed }}</td>
-          <td>{{ t.createdAt | date: 'longDate' }}</td>
-          <td>{{ t.deadline | date: 'longDate' }}</td>
-          <td>{{ t.project.title }}</td>
+          <td class="text-center">{{ t.createdAt | date: 'longDate' }}</td>
+          <td class="text-center">{{ t.deadline | date: 'longDate' }}</td>
+          <td class="text-center">{{ t.project.title }}</td>
           <td>
             <button
               *ngIf="!t.completed"
@@ -53,12 +51,6 @@ import { Project } from 'src/app/project/Project';
               class="btn btn-warning ml-3"
             >
               Re-ouvrir
-            </button>
-            <button
-              class="ml-1 btn btn-danger btn-sm"
-              (click)="handleDelete(t)"
-            >
-              Supprimer
             </button>
           </td>
         </tr>
@@ -79,7 +71,6 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
     this.tasks = this.route.snapshot.data.tasks;
-    console.log(this.tasks);
   }
 
   handleDelete(t: Task) {

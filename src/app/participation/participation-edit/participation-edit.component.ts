@@ -12,8 +12,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-participation-edit',
   template: `
-    <button class="btn btn-link" *ngIf="!open" (click)="open = !open">
-      Modifier
+    <button class="btn btn-link btn-sm" *ngIf="!open" (click)="open = !open">
+      <i class="far fa-edit"></i>
     </button>
     <ng-container *ngIf="open">
       <form [formGroup]="form" (ngSubmit)="handleSubmit()">
@@ -25,10 +25,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 
         <select class="form-control" formControlName="role" id="role">
           <option value="VIEWER">
-            VIEWER
+            Assistant
           </option>
           <option value="MANAGER">
-            MANAGER
+            Gestionaire
           </option>
         </select>
 

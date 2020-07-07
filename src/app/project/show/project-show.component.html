@@ -1,18 +1,38 @@
-<section class="mb-3">
+<section class="mb-3 mt-5">
   <div class="card">
-    <h5 class="card-header">Information generale</h5>
+    <h5 class="card-header d-flex justify-content-between">
+      <span> Information generale</span>
+      <span
+        class="badge badge-pill"
+        [class.badge-danger]="avgCalculator() <= 20"
+        [class.badge-warning]="avgCalculator() <= 50"
+        [class.badge-success]="avgCalculator() === 100"
+        [class.badge-info]="avgCalculator() > 50 && avgCalculator() < 100"
+      >
+        {{ avgCalculator() }} %</span
+      >
+    </h5>
     <div class="card-body">
-      <h5 class="card-title">{{ project.title }}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">
+      <h3 class="card-title text-center">{{ project.title }}</h3>
+      <h6
+        class="card-subtitle mb-2 text-muted"
+        *ngIf="project.customer.length > 0"
+      >
         {{ project.customer[0].firstName }}
         {{ project.customer[0].lastName }} vs {{ project.adversary }}
       </h6>
-      <p class="card-text" *ngFor="let c of project.customer">
-        <a routerLink="/customers/{{ c.id }}" class="card-link">
+      <div class="group-list d-flex justify-content-start mt-3 mb-2">
+        <p class="card-text mb-2">Clients:</p>
+        <a
+          routerLink="/customers/{{ c.id }}"
+          class="card-link"
+          *ngFor="let c of project.customer"
+        >
           {{ c.firstName }} {{ c.lastName }}
         </a>
-      </p>
-      <p class="card-subtitle mb-2">{{ project.category }}</p>
+      </div>
+      <p class="card-subtitle mb-2">Categorie: {{ project.category }}</p>
+      <p class="card-text">Description:</p>
       <p class="card-text">
         {{ project.description }}
       </p>
@@ -26,7 +46,7 @@
         <span>{{ project.deadline | date: "longDate" }}</span>
       </p>
       <p class="card-text">
-        Evolution:
+        Etape:
       </p>
       <div class="card-text d-flex">
         <span
@@ -36,6 +56,7 @@
           >{{ s }}</span
         >
       </div>
+
       <a
         *ngIf="participantIsAuthorized()"
         routerLink="/projects/edit/{{ project.id }}"
@@ -51,23 +72,50 @@
   </app-participation-list>
 </section>
 
-<section>
-  <h2>Gestion du projet</h2>
+<section class="mt-5">
+  <h2 class="text-center mb-3">Gestion du projet</h2>
   <div class="row">
     <div class="col">
-      <h4>Taches</h4>
-      <div class="card" *ngFor="let t of project.tasks">
+      <app-task-show
+        [open]="showTask"
+        [currentUser]="currentUser"
+        [project]="project"
+        [task]="currentTask"
+        (deletedTask)="handleDeletedTask($event)"
+        (editedTask)="handleEditedTask($event)"
+      ></app-task-show>
+      <app-events-show
+        [open]="eventShow"
+        [currentUser]="currentUser"
+        [project]="project"
+        [event]="currentEvent"
+        (deletedEvent)="handleDeletedEvent($event)"
+        (editedEvent)="handleEditedEvent($event)"
+      ></app-events-show>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h4 class="mb-3">Taches</h4>
+      <div
+        class="card mb-3"
+        *ngFor="let t of project.tasks"
+        [class.border-success]="t.completed"
+      >
         <h5 class="card-header">{{ t.title }}</h5>
-        <div class="card-body" [class.bg-info]="t.completed">
-          <p class="card-text">{{ t.deadline | date: "longDate" }}</p>
-          <button (click)="handleShowTask(t)" class="card-link">details</button>
+        <div class="card-body">
+          <p class="card-text">Deadline: {{ calcInterval(t.deadline) }}</p>
+          <p class="card-text">{{ t.description }}</p>
+          <button (click)="handleShowTask(t)" class="btn btn-link">
+            details
+          </button>
+          <app-task-edit
+            [currentUser]="currentUser"
+            [project]="project"
+            [currentTask]="t"
+            (editedTask)="handleEditedTask($event)"
+          ></app-task-edit>
         </div>
-        <app-task-edit
-          [currentUser]="currentUser"
-          [project]="project"
-          [currentTask]="t"
-          (editedTask)="handleEditedTask($event)"
-        ></app-task-edit>
       </div>
       <app-task-create
         [currentUser]="currentUser"
@@ -77,21 +125,21 @@
     </div>
 
     <div class="col">
-      <h4>Events</h4>
-      <div class="card" *ngFor="let e of project.events">
+      <h4 class="mb-3">Events</h4>
+      <div class="card mb-3" *ngFor="let e of project.events">
         <h5 class="card-header">{{ e.title }}</h5>
         <div class="card-body">
-          <p class="card-text">{{ e.date | date: "longDate" }}</p>
-          <button (click)="handleShowEvent(e)" class="card-link">
+          <p class="card-text">Date: {{ calcInterval(e.date) }}</p>
+          <button (click)="handleShowEvent(e)" class="btn btn-link">
             details
           </button>
+          <app-events-edit
+            [currentUser]="currentUser"
+            [project]="project"
+            [currentEvent]="e"
+            (editedEvent)="handleEditedEvent($event)"
+          ></app-events-edit>
         </div>
-        <app-events-edit
-          [currentUser]="currentUser"
-          [project]="project"
-          [currentEvent]="e"
-          (editedEvent)="handleEditedEvent($event)"
-        ></app-events-edit>
       </div>
       <app-events-create
         [currentUser]="currentUser"
@@ -100,16 +148,4 @@
       ></app-events-create>
     </div>
   </div>
-  <app-task-show
-    [project]="project"
-    [task]="currentTask"
-    (deletedTask)="handleDeletedTask($event)"
-    (editedTask)="handleEditedTask($event)"
-  ></app-task-show>
-  <app-events-show
-    [project]="project"
-    [event]="currentEvent"
-    (deletedEvent)="handleDeletedEvent($event)"
-    (editedEvent)="handleEditedEvent($event)"
-  ></app-events-show>
 </section>

@@ -8,22 +8,30 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-customer-show',
   template: `
-    <div class="card">
-      <div class="card-body">
-        <p class="card-text">Id: {{ customer.id }}</p>
-        <p class="card-text">
-          Nom complet: {{ customer.firstName }} {{ customer.lastName }}
-        </p>
-        <p class="card-text">Adresse email: {{ customer.email }}</p>
-        <p class="card-text">Adresse postale: {{ customer.address }}</p>
-        <p class="cardtext">Entreprise: {{ customer.company }}</p>
+    <div class="mt-5 mb-5">
+      <div class="card">
+        <div class="card-header">
+          <h6>{{ customer.firstName }} {{ customer.lastName }}</h6>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Id: {{ customer.id }}</p>
+          <p class="card-text">
+            Nom complet: {{ customer.firstName }} {{ customer.lastName }}
+          </p>
+          <p class="card-text">Adresse email: {{ customer.email }}</p>
+          <p class="card-text">Adresse postale: {{ customer.address }}</p>
+          <p class="card-text">Entreprise: {{ customer.company }}</p>
+
+          <a
+            routerLink="/customers/edit/{{ customer.id }}"
+            class="btn btn-primary"
+            >Modifier</a
+          >
+          <button class="btn btn-danger" (click)="handleDelete(customer)">
+            Supprimer
+          </button>
+        </div>
       </div>
-      <a routerLink="/customers/edit/{{ customer.id }}" class="card-link"
-        >Modifier</a
-      >
-      <button class="btn btn-link" (click)="handleDelete(customer)">
-        Supprimer
-      </button>
     </div>
   `,
   styles: [],

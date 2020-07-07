@@ -12,10 +12,14 @@
       </p>
       <p class="card-text">Adresse: {{ event.address }}</p>
       <div class="flex">
-        <button class="btn btn-danger ml-3" (click)="handleDelete(event)">
+        <button
+          *ngIf="participantIsAuthorized()"
+          class="btn btn-danger ml-3"
+          (click)="handleDelete(event)"
+        >
           Supprimer
         </button>
-        <button class="btn btn-secundary ml-3" (click)="event = null">
+        <button class="btn btn-secundary ml-3" (click)="open = false">
           Back
         </button>
       </div>

@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { Project } from 'src/app/project/Project';
 import { UiService } from 'src/app/ui/ui.service';
 import { TaskService } from '../task.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-task-create',
@@ -18,7 +19,7 @@ import { TaskService } from '../task.service';
     </button>
 
     <ng-container *ngIf="open">
-      <h1>Creer une tache</h1>
+      <h2>Nouvelle</h2>
 
       <form [formGroup]="form" (ngSubmit)="handleSubmit()">
         <div class="form-group">
@@ -63,6 +64,7 @@ import { TaskService } from '../task.service';
         </div>
 
         <button class="btn btn-success">Enregistrer</button>
+        <button (click)="open = false" class="btn btn-warning">Annuler</button>
       </form>
     </ng-container>
   `,
@@ -80,7 +82,11 @@ export class TaskCreateComponent implements OnInit {
   @Output()
   taskCreated = new EventEmitter();
 
-  constructor(private taskService: TaskService, private ui: UiService) {}
+  constructor(
+    private taskService: TaskService,
+    private ui: UiService,
+    private toastr: ToastrService
+  ) {}
 
   form = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -109,6 +115,7 @@ export class TaskCreateComponent implements OnInit {
         (task) => {
           this.taskCreated.emit(task);
           this.open = false;
+          this.toastr.success('La tache a bien été créé');
         },
         (error: HttpErrorResponse) => {
           if (error.status === 400 && error.error.violations) {

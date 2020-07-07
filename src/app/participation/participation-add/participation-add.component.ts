@@ -31,10 +31,10 @@ import { HttpErrorResponse } from '@angular/common/http';
         <select class="form-control" formControlName="role" id="role">
           <option value=""> -- selectionez le role -- </option>
           <option value="VIEWER">
-            VIEWER
+            Assistant
           </option>
           <option value="MANAGER">
-            MANAGER
+            Gestionnaire
           </option>
         </select>
 

@@ -8,48 +8,54 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-customers',
   template: `
-    <h1>Mes clients</h1>
-    <a routerLink="/customers/new" class="btn btn-link">Ajouter un client</a>
-    <table class="table table-hover">
-      <thead>
-        <tr class="table-primary">
-          <th class="text-center">Id</th>
-          <th class="text-center">Nom</th>
-          <th class="text-center">Entreprise</th>
-          <th class="text-center">Email</th>
-          <th class="text-center">Adresse</th>
-          <th class="text-center"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="let c of customers; let isOdd = odd"
-          [class.table-secondary]="isOdd"
-          [class.table-primary]="!isOdd"
-        >
-          <td>{{ c.id }}</td>
-          <td>{{ c.firstName }} {{ c.lastName }}</td>
-          <td>{{ c.company }}</td>
-          <td>{{ c.email }}</td>
-          <td>
-            <address>{{ c.address }}</address>
-          </td>
-          <td>
-            <a
-              routerLink="/customers/edit/{{ c.id }}"
-              class="btn btn-primary btn-sm"
-              >Modifier</a
-            >
-            <button
-              class="ml-1 btn btn-danger btn-sm"
-              (click)="handleDelete(c)"
-            >
-              Supprimer
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="mb-3 mt-5">
+      <h1 class="text-center">Mes clients</h1>
+      <a routerLink="/customers/new" class="btn btn-link">Ajouter un client</a>
+      <table class="table table-hover">
+        <thead>
+          <tr class="table-dark">
+            <th class="text-center">Id</th>
+            <th class="text-center">Nom</th>
+            <th class="text-center">Entreprise</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Adresse</th>
+            <th class="text-center"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let c of customers; let isOdd = odd"
+            [class.table-secondary]="isOdd"
+            [class.table-primary]="!isOdd"
+          >
+            <td>{{ c.id }}</td>
+            <td>
+              <a routerLink="/customers/{{ c.id }}"
+                >{{ c.firstName }} {{ c.lastName }}</a
+              >
+            </td>
+            <td>{{ c.company }}</td>
+            <td>{{ c.email }}</td>
+            <td>
+              <address>{{ c.address }}</address>
+            </td>
+            <td>
+              <a
+                routerLink="/customers/edit/{{ c.id }}"
+                class="btn btn-primary btn-sm"
+                ><i class="fas fa-edit"></i
+              ></a>
+              <button
+                class="ml-1 btn btn-danger btn-sm"
+                (click)="handleDelete(c)"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   `,
   styles: [],
 })

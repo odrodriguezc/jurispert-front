@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UiService } from 'src/app/ui/ui.service';
 import { Event } from '../event';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-events-edit',
@@ -41,7 +42,8 @@ export class EventsEditComponent implements OnInit {
     private projectsService: ProjectService,
     private router: Router,
     private ui: UiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -65,7 +67,7 @@ export class EventsEditComponent implements OnInit {
         (event) => {
           this.editedEvent.emit(event);
           this.open = false;
-          //TODO : Norification
+          this.toastr.success("L'evennement a bien été modifié");
         },
         (error: HttpErrorResponse) => {
           if (error.status === 400 && error.error.violations) {

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomersService } from '../customers.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-create',
@@ -22,7 +23,8 @@ export class CustomerCreateComponent implements OnInit {
 
   constructor(
     private customersService: CustomersService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {}
@@ -34,6 +36,7 @@ export class CustomerCreateComponent implements OnInit {
     }
     this.customersService.create(this.form.value).subscribe(
       (customer) => {
+        this.toastr.success('Le client a bien été creé');
         this.router.navigateByUrl('/customers');
       },
       (error: HttpErrorResponse) => {

@@ -7,6 +7,7 @@ import { UiService } from 'src/app/ui/ui.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Project } from '../Project';
 import { CustomersService } from 'src/app/customers/customers.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit',
@@ -38,7 +39,8 @@ export class ProjectEditComponent implements OnInit {
     private customersService: CustomersService,
     private route: ActivatedRoute,
     private router: Router,
-    private ui: UiService
+    private ui: UiService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -69,14 +71,15 @@ export class ProjectEditComponent implements OnInit {
 
     let editedProject = { ...this.currentProject, ...this.form.value };
 
-    console.log(editedProject);
     this.projectsService.update(editedProject).subscribe(
       (project) => {
+        this.toastr.success('Le projet a bien été modifié');
         this.router.navigateByUrl('/projects/' + project.id);
       },
       (error: HttpErrorResponse) => {
         if (error.status === 400 && error.error.violations) {
           this.ui.fillViolationsInForm(this.form, error.error.violations);
+
           return;
         }
       }

@@ -13,9 +13,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TasksModule } from './tasks/tasks.module';
 import { EventsModule } from './events/events.module';
 import { ParticipationModule } from './participation/participation.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChartsModule } from 'ng2-charts';
+import { DashboardChartComponent } from './dashboard-chart/dashboard-chart.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent, NavbarComponent, DashboardComponent, DashboardChartComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -28,6 +31,7 @@ import { ParticipationModule } from './participation/participation.module';
     TasksModule,
     EventsModule,
     ParticipationModule,
+    ChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
